@@ -16,7 +16,10 @@
 
 @implementation FirstViewController
 
-@synthesize textSizeSlider, textText, sliderTickMarks, smallTextLabel, largeTextLabel, boldLabel, italicsLabel, underlineLabel;
+@synthesize textSizeSlider, textText, sliderTickMarks, smallTextLabel, largeTextLabel,
+    boldLabel, italicsLabel, underlineLabel, boldButton, italicsButton, underlineButton,
+    textSizeLabel, textStyleLabel, colorLabel, fontLabel, imageLabel,
+    blackButton, redButton, orangeButton, greenButton, yellowButton, whiteButton, blueButton;
 
 - (void)viewDidLoad
 {
@@ -32,10 +35,24 @@
     boldLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     italicsLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     underlineLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+    textSizeLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+    textStyleLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+    colorLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+    fontLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+    imageLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     
     boldLabel.text = [NSString awesomeIcon:FaBold];
     italicsLabel.text = [NSString awesomeIcon:FaItalic];
     underlineLabel.text = [NSString awesomeIcon:FaUnderline];
+    textSizeLabel.text = [NSString awesomeIcon:FaTextHeight];
+    textStyleLabel.text = [NSString awesomeIcon:FaList];
+    colorLabel.text = [NSString awesomeIcon:FaPencil];
+    fontLabel.text = [NSString awesomeIcon:FaComments];
+    imageLabel.text = [NSString awesomeIcon:FaPictureO];
+    
+//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        // There is not a camera on this device, so don't show the camera button.
+//    }
     
 }
 
@@ -43,6 +60,96 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)clearToolBar {
+    // Clear Text Sizing Tools
+    textSizeSlider.hidden = YES;
+    sliderTickMarks.hidden = YES;
+    smallTextLabel.hidden = YES;
+    largeTextLabel.hidden = YES;
+    
+    // Clear Text Styling Tools
+    boldLabel.hidden = YES;
+    italicsLabel.hidden = YES;
+    underlineLabel.hidden = YES;
+    boldButton.hidden = YES;
+    italicsButton.hidden = YES;
+    underlineButton.hidden = YES;
+    
+    
+    // Clear Color Tools
+    blackButton.hidden = YES;
+    redButton.hidden = YES;
+    orangeButton.hidden = YES;
+    greenButton.hidden = YES;
+    yellowButton.hidden = YES;
+    whiteButton.hidden = YES;
+    blueButton.hidden = YES;
+    
+    // Clear Font Tool
+    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        NSLog(@"Button 1");
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
+        imagePicker.delegate = self;
+        self.imagePickerController = imagePicker;
+        [self presentViewController:self.imagePickerController animated:YES completion:nil];
+    }
+    else if (buttonIndex == 1){
+        NSLog(@"Button 2");
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
+//        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+//        imagePickerController.showsCameraControls = NO;
+        self.imagePickerController = imagePicker;
+        [self presentViewController:self.imagePickerController animated:YES completion:nil];
+    }
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [self.backgroundImage setImage:image];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    
+//    TO MAKE IMAGE BLACK AND WHITE
+//    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage]; // this image we get from UIImagePickerController
+//    
+//    CGColorSpaceRef colorSapce = CGColorSpaceCreateDeviceGray();
+//    CGContextRef context = CGBitmapContextCreate(nil, originalImage.size.width, originalImage.size.height, 8, originalImage.size.width, colorSapce, kCGImageAlphaNone);
+//    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+//    CGContextSetShouldAntialias(context, NO);
+//    CGContextDrawImage(context, CGRectMake(0, 0, originalImage.size.width, originalImage.size.height), [originalImage CGImage]);
+//    
+//    CGImageRef bwImage = CGBitmapContextCreateImage(context);
+//    CGContextRelease(context);
+//    CGColorSpaceRelease(colorSapce);
+//    
+//    UIImage *resultImage = [UIImage imageWithCGImage:bwImage]; // This is result B/W image.
+//    CGImageRelease(bwImage);
+    
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touchEvent = [touches anyObject];
+    CGPoint location = [touchEvent locationInView:self.view];
+    [UIView beginAnimations:@"Dragging" context:nil];
+    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
+    [UIView commitAnimations];
+}
+
+- (IBAction)showImageActions:(id)sender {
+    UIActionSheet *imageAction = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"" destructiveButtonTitle:@"" otherButtonTitles:@"Choose Photo", @"Take Photo", nil];
+    imageAction.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [imageAction  showInView:self.view];
+//    [imageAction release];
 }
 
 - (IBAction)sliderValueChanged:(UISlider*)slider {
@@ -68,19 +175,67 @@
         [textText resignFirstResponder];
 }
 
+- (IBAction)textSizeButtonPressed:(UIButton *)button {
+    [self clearToolBar];
+    
+    textSizeSlider.hidden = NO;
+    sliderTickMarks.hidden = NO;
+    smallTextLabel.hidden = NO;
+    largeTextLabel.hidden = NO;
+}
+
+- (IBAction)textStyleButtonPressed:(UIButton *)button {
+    [self clearToolBar];
+    
+    boldLabel.hidden = NO;
+    italicsLabel.hidden = NO;
+    underlineLabel.hidden = NO;
+    boldButton.hidden = NO;
+    italicsButton.hidden = NO;
+    underlineButton.hidden = NO;
+}
+
+- (IBAction)colorButtonPressed:(UIButton *)button {
+    [self clearToolBar];
+    
+    blackButton.hidden = NO;
+    redButton.hidden = NO;
+    orangeButton.hidden = NO;
+    greenButton.hidden = NO;
+    yellowButton.hidden = NO;
+    whiteButton.hidden = NO;
+    blueButton.hidden = NO;
+}
+
+- (IBAction)fontButtonPressed:(UIButton *)button {
+    [self clearToolBar];
+    
+}
+
+- (IBAction)imageButtonPressed:(UIButton *)button {
+    UIActionSheet *imageAction = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Choose Photo", @"Take Photo", nil];
+    imageAction.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [imageAction  showInView:self.view];
+//    [imageAction dismissWithClickedButtonIndex:imageAction.cancelButtonIndex animated:YES];
+}
+
 - (IBAction)boldButtonPressed:(UIButton *)button {
 //    UIFontDescriptor *bodyFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
     UIFontDescriptor *bodyFontDescriptor = textText.font.fontDescriptor;
     UIFontDescriptor *boldBodyFontDescriptor = nil;
     
-    UIFont *boldFont = [UIFont boldSystemFontOfSize:textText.font.pointSize];
+//    UIFont *boldFont = [UIFont boldSystemFontOfSize:textText.font.pointSize];
     
 //    if ((textText.font.fontDescriptor.symbolicTraits & UIFontDescriptorTraitBold) != 0) {
-    if ([textText.font.fontName isEqualToString:boldFont.fontName]) {
+    //    if ([textText.font.fontName isEqualToString:boldFont.fontName]) {
+    if (button.selected) {
+        button.selected = NO;
         boldBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:(bodyFontDescriptor.symbolicTraits & ~UIFontDescriptorTraitBold)];
     }
     else {
+        button.selected = YES;
         boldBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+        
     }
     
     textText.font = [UIFont fontWithDescriptor:boldBodyFontDescriptor size:textText.font.pointSize];
@@ -92,10 +247,12 @@
     
     UIFont *italicFont = [UIFont italicSystemFontOfSize:textText.font.pointSize];
     
-    if ([textText.font.fontName isEqualToString:italicFont.fontName]) {
+    if (button.selected) {
+        button.selected = NO;
         italicBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:(bodyFontDescriptor.symbolicTraits & ~UIFontDescriptorTraitItalic)];
     }
     else {
+        button.selected = YES;
         italicBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
     }
     
