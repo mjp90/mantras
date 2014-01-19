@@ -15,6 +15,7 @@
 {
     [Parse setApplicationId:@"HA0JxU5aaEyx6781bs8kQq2Cyt0wrtBgROMdmupq" clientKey:@"bEtzjhdv7KNbP36rEl4Ozg7mfWKhQHv1PBhuyxuh"];
     // Override point for customization after application launch.
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.2 green:.227 blue:.27 alpha:1]];
     return YES;
 }
 							

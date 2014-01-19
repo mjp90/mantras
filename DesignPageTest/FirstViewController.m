@@ -25,7 +25,25 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+//    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], UITextAttributeTextColor, nil] forState:UIControlStateNormal];
+    
+    
+//    [textText sizeToFit];
+//    [textText layoutIfNeeded];
+//    CGRect noJumpFrame = [[textText layoutManager] usedRectForTextContainer:[textText textContainer]];
+//    textText.frame = noJumpFrame;
+    
+    self.firstLoad = YES;
+    
     [self tickMarksForSlider:textSizeSlider inView:sliderTickMarks];
+    if(self.navigationController.navigationItem)
+        NSLog(@"Not nil");
+    else
+        NSLog(@"Nil");
+    [self.navigationController setNavigationBarHidden:YES];
+    self.fontNameArray = [UIFont familyNames];
+//    self.fontNameArray = [NSArray arrayWithArray:[[UIFont familyNames] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
     
     smallTextLabel.font = [UIFont fontWithName:@"FontAwesome" size:14];
     largeTextLabel.font = [UIFont fontWithName:@"FontAwesome" size:26];
@@ -37,7 +55,7 @@
     underlineLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     textSizeLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     textStyleLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
-    colorLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
+//    colorLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     fontLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     imageLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
     
@@ -46,20 +64,136 @@
     underlineLabel.text = [NSString awesomeIcon:FaUnderline];
     textSizeLabel.text = [NSString awesomeIcon:FaTextHeight];
     textStyleLabel.text = [NSString awesomeIcon:FaList];
-    colorLabel.text = [NSString awesomeIcon:FaPencil];
+//    colorLabel.text = [NSString awesomeIcon:FaPencil];
     fontLabel.text = [NSString awesomeIcon:FaComments];
     imageLabel.text = [NSString awesomeIcon:FaPictureO];
+    
+    UIPanGestureRecognizer *tap = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panView:)];
+    [self.textText addGestureRecognizer:tap];
+//    [tap release];
+    
+//    UITouch *touchEvent = [touches anyObject];
+    //    CGPoint location = [touchEvent locationInView:self.view];
+    //    [UIView beginAnimations:@"Dragging" context:nil];
+    //    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
+    //    [UIView commitAnimations];
+    
+    
     
 //    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         // There is not a camera on this device, so don't show the camera button.
 //    }
+//    [self.textColorButton setImage:[UIImage imageNamed:@"Mantra-Icon-Color-Bucket.png"] forState:UIControlStateNormal];
     
 }
+
+// Called Before New Text is Put In
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//    CGRect noJumpFrame = [[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+////    if (noJumpFrame.size.width > 280 - textView.frame.origin.x)
+//    NSLog(@"Text Container Before width: %@, text height: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
+//    
+//    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, noJumpFrame.size.width + 20, noJumpFrame.size.height + 15);
+//    return YES;
+//}
+
+// Passes textView with new view before rendered
+//-(void)textViewDidChange:(UITextView *)textView {
+//    CGRect noJumpFrame = [[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+////    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, noJumpFrame.size.width + 20, noJumpFrame.size.height + 15);
+//    float extendedWidth = noJumpFrame.size.width;
+//    if (extendedWidth > 280)
+//        textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 280, textText.frame.size.height);
+//    NSLog(@"Text Container Width: %f, Height:%f", noJumpFrame.size.width, noJumpFrame.size.height);
+//    NSLog(@"Text View Width: %f, Height:%f", textText.frame.size.width, textText.frame.size.height);
+//    
+//    // HACKY LOGIC. TRY TO FIND BETTER WAY
+////    if (self.firstLoad == YES) {
+////        self.firstLoad = NO;
+////        textText.frame = noJumpFrame;
+////        return;
+////    }
+////    if (textText.frame.size.width + noJumpFrame.size.width > 280)
+////        noJumpFrame.size.width = 280;
+////    else
+////        noJumpFrame.size.width += textText.frame.size.width;
+//    
+//    if (noJumpFrame.size.width > 280)
+//        noJumpFrame.size.width = 280;
+////    if (noJumpFrame.size.height)
+//
+//    textText.frame = noJumpFrame;
+//}
+
+- (void)panView:(UIPanGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer translationInView:self.textText];
+    CGRect noJumpFrame = [[textText layoutManager] usedRectForTextContainer:[textText textContainer]];
+//    float newX = recognizer.view.center.x + location.x;
+//    float newY = recognizer.view.center.y + location.y;
+    
+    
+    
+    float xO = recognizer.view.frame.origin.x;
+    float yO = recognizer.view.frame.origin.y;
+    
+    float newX = xO + location.x;
+    float newY = yO + location.y;
+    
+//     NSLog(@"View Center: X: %@ Y: %@", [NSString stringWithFormat:@"%f", recognizer.view.center.x], [NSString stringWithFormat:@"%f", recognizer.view.center.y]);
+    NSLog(@"View Origin: X: %@ Y: %@", [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.x], [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.y]);
+    NSLog(@"Move To: X: %@ Y: %@", [NSString stringWithFormat:@"%f", location.x], [NSString stringWithFormat:@"%f", location.y]);
+    
+    
+    if (newX < 0)
+        newX = 0;
+    else if (noJumpFrame.size.width > (280 - xO - location.x - 2))
+        newX = xO;
+    if (newY < 0)
+        newY = 0;
+    else if (noJumpFrame.size.height > (300 - (yO + location.y + 10)))
+        newY = yO;
+    
+    NSLog(@"Text Size X: %@ New Y: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
+    NSLog(@"New X: %@ New Y: %@", [NSString stringWithFormat:@"%f", newX], [NSString stringWithFormat:@"%f", newY]);
+    
+    
+//    if (newX < 140)
+//        newX = 140;
+//    else if (newX > 400)
+//        newX = 400;
+//    
+//    if (newY < 150)
+//        newY = 150;
+//    else if (newY > 400)
+//        newY = 400;
+    NSUInteger length = [self.textText.text length];
+    
+//    recognizer.view.center = CGPointMake(newX, newY);
+    recognizer.view.frame = CGRectMake(newX, newY, recognizer.view.frame.size.width, recognizer.view.frame.size.height);
+    [recognizer setTranslation:CGPointMake(0, 0)inView:self.textText];
+    
+    
+    
+    //    CGPoint location = [touchEvent locationInView:self.view];
+    //    [UIView beginAnimations:@"Dragging" context:nil];
+    //    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
+    //    [UIView commitAnimations];
+}
+
+//- (NSComparisonResult)localizedCaseInsensitiveCompare:(FontNameAndFeatures *)aFontNameAndFeatures {
+//	return ([self.fontName localizedCaseInsensitiveCompare:aFontNameAndFeatures.fontName]);
+//}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)logoutButtonTapped:(id)sender {
+    [PFUser logOut];
+    NSLog(@"User Logged Out Successfully");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)clearToolBar {
@@ -88,6 +222,7 @@
     blueButton.hidden = YES;
     
     // Clear Font Tool
+    self.fontPicker.hidden = YES;
     
 }
 
@@ -137,13 +272,13 @@
     
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touchEvent = [touches anyObject];
-    CGPoint location = [touchEvent locationInView:self.view];
-    [UIView beginAnimations:@"Dragging" context:nil];
-    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
-    [UIView commitAnimations];
-}
+//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+//    UITouch *touchEvent = [touches anyObject];
+//    CGPoint location = [touchEvent locationInView:self.view];
+//    [UIView beginAnimations:@"Dragging" context:nil];
+//    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
+//    [UIView commitAnimations];
+//}
 
 - (IBAction)showImageActions:(id)sender {
     UIActionSheet *imageAction = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"" destructiveButtonTitle:@"" otherButtonTitles:@"Choose Photo", @"Take Photo", nil];
@@ -205,10 +340,19 @@
     yellowButton.hidden = NO;
     whiteButton.hidden = NO;
     blueButton.hidden = NO;
+    
+    if ([button isSelected]) {
+        [button setImage:[UIImage imageNamed:@"Mantra-Icon-Color-Bucket.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"Mantra-Icon-Color-Bucket-(pressed).png"] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)fontButtonPressed:(UIButton *)button {
     [self clearToolBar];
+    
+    self.fontPicker.hidden = NO;
     
 }
 
@@ -234,7 +378,7 @@
     }
     else {
         button.selected = YES;
-        boldBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+        boldBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:(bodyFontDescriptor.symbolicTraits |UIFontDescriptorTraitBold)];
         
     }
     
@@ -245,15 +389,13 @@
     UIFontDescriptor *bodyFontDescriptor = textText.font.fontDescriptor;
     UIFontDescriptor *italicBodyFontDescriptor = nil;
     
-    UIFont *italicFont = [UIFont italicSystemFontOfSize:textText.font.pointSize];
-    
     if (button.selected) {
         button.selected = NO;
         italicBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:(bodyFontDescriptor.symbolicTraits & ~UIFontDescriptorTraitItalic)];
     }
     else {
         button.selected = YES;
-        italicBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
+        italicBodyFontDescriptor = [bodyFontDescriptor fontDescriptorWithSymbolicTraits:(bodyFontDescriptor.symbolicTraits |UIFontDescriptorTraitItalic)];
     }
     
     textText.font = [UIFont fontWithDescriptor:italicBodyFontDescriptor size:textText.font.pointSize];
@@ -369,18 +511,61 @@
 }
 
 - (IBAction)saveButtonPressed:(id)button {
-    PFObject *quote = [PFObject objectWithClassName:@"Quote"];
-    [quote setObject:textText.text forKey:@"Text"];
-//    [quote setObject:textText.textColor. forKey:@"Color"];
-    [quote saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"Object Uploaded!");
+    UIGraphicsBeginImageContextWithOptions(self.designView.bounds.size, NO, 0.0);
+    CGContextClipToRect(UIGraphicsGetCurrentContext(), self.designView.bounds);
+    [self.designView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [self.designView drawViewHierarchyInRect:self.designView.bounds afterScreenUpdates:NO];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.backgroundImage setImage:viewImage];
+    textText.text = @"";
+    
+    
+    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:UIImagePNGRepresentation(viewImage)];
+    
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            PFObject *userPhoto = [PFObject objectWithClassName:@"Quote"];
+            [userPhoto setObject:imageFile forKey:@"image"];
+//            userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            
+//            PFUser *user = [PFUser currentUser];
+//            [userPhoto setObject:user forKey:@"user"];
+            
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+//                    [self refresh:nil];
+                }
+                else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
         }
         else {
-            NSString *networkError = [[error userInfo] objectForKey:@"error"];
-            NSLog(@"Error: %@", networkError);
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    textText.text = @"";
+    self.backgroundImage.image = nil;
+    
+    
+//    [self.backgroundImage setBackgroundColor:[UIColor greenColor]];
+//    [self.textText setHidden:YES];
+    
+//    PFObject *quote = [PFObject objectWithClassName:@"Quote"];
+//    [quote setObject:textText.text forKey:@"Text"];
+////    [quote setObject:textText.textColor. forKey:@"Color"];
+//    [quote saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            NSLog(@"Object Uploaded!");
+//        }
+//        else {
+//            NSString *networkError = [[error userInfo] objectForKey:@"error"];
+//            NSLog(@"Error: %@", networkError);
+//        }
+//    }];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -389,6 +574,43 @@
             [textText resignFirstResponder];
     }
     [super touchesBegan:touches withEvent:event];
+}
+
+#pragma mark Picker Delegate methods
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [[UIFont familyNames] count];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel* tView = (UILabel*)view;
+    if (!tView){
+        tView = [[UILabel alloc] init];
+        // Setup label properties - frame, font, colors etc
+        [tView setFont:[UIFont fontWithName:[self.fontNameArray objectAtIndex:row] size:20.0]];
+        tView.textAlignment = NSTextAlignmentCenter;
+        
+        
+    }
+    tView.text = [self.fontNameArray objectAtIndex:row];
+    // Fill the label text here
+    
+    return tView;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [self.fontNameArray objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSLog(@"Font Name: %@", [self.fontNameArray objectAtIndex:row]);
+    [textText setFont:[UIFont fontWithName:[self.fontNameArray objectAtIndex:row] size:textText.font.pointSize]];
 }
 
 @end

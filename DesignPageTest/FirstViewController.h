@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FirstViewDelegate<NSObject>
+@optional
+- (void)logoutButtonTapped:(id)sender;
+@end
 
-@interface FirstViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface FirstViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate>
+
+@property (nonatomic, retain) IBOutlet UIView *designView;
 
 @property (nonatomic, retain) IBOutlet UISlider *textSizeSlider;
 @property (nonatomic, retain) IBOutlet UITextView *textText;
@@ -29,6 +35,11 @@
 
 @property (nonatomic) IBOutlet UIImageView *backgroundImage;
 
+@property (strong, nonatomic) NSArray *fontNameArray;
+
+@property IBOutlet UIButton *textSizeButton;
+@property IBOutlet UIButton *textStyleButton;
+@property IBOutlet UIButton *textColorButton;
 @property IBOutlet UIButton *boldButton;
 @property IBOutlet UIButton *italicsButton;
 @property IBOutlet UIButton *underlineButton;
@@ -39,6 +50,8 @@
 @property IBOutlet UIButton *yellowButton;
 @property IBOutlet UIButton *whiteButton;
 @property IBOutlet UIButton *blueButton;
+
+@property IBOutlet UIPickerView *fontPicker;
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
 
@@ -59,7 +72,6 @@
 - (IBAction)fontButtonPressed:(UIButton*)button;
 - (IBAction)imageButtonPressed:(UIButton*)button;
 
-
 - (IBAction)blackColorButtonPressed:(UIButton*)button;
 - (IBAction)redColorButtonPressed:(UIButton*)button;
 - (IBAction)orangeColorButtonPressed:(UIButton*)button;
@@ -71,5 +83,12 @@
 - (UIView*)tickMarksForSlider:(UISlider*)slider inView:(UIView*)view;
 
 - (void)clearToolBar;
+
+@property (assign) id<FirstViewDelegate> delegate;
+- (IBAction)logoutButtonTapped:(id)sender;
+
+// NO GOOD
+@property BOOL firstLoad;
+
 
 @end

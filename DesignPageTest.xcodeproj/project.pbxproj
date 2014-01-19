@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		772B36F0187BD0140052D1A0 /* Mantra-Icon-Color Bucket-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772B36ED187BD0140052D1A0 /* Mantra-Icon-Color Bucket-2.png */; };
+		772B36F1187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png in Resources */ = {isa = PBXBuildFile; fileRef = 772B36EE187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png */; };
+		772B36F2187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png in Resources */ = {isa = PBXBuildFile; fileRef = 772B36EF187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png */; };
+		774CF14918853AE0009E3889 /* DiscoveredViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774CF14818853AE0009E3889 /* DiscoveredViewCell.m */; };
+		77793FA11885038B0070138C /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77793FA01885038B0070138C /* DiscoverViewController.m */; };
 		77C09A59186FE08000C68062 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09A58186FE08000C68062 /* Foundation.framework */; };
 		77C09A5B186FE08000C68062 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09A5A186FE08000C68062 /* CoreGraphics.framework */; };
 		77C09A5D186FE08000C68062 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09A5C186FE08000C68062 /* UIKit.framework */; };
@@ -40,6 +45,7 @@
 		77C09AB81870F64100C68062 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09AB71870F64100C68062 /* MobileCoreServices.framework */; };
 		77C09ABA1870F64B00C68062 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09AB91870F64B00C68062 /* QuartzCore.framework */; };
 		77C09ABD18710DD700C68062 /* MyQuotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C09ABC18710DD700C68062 /* MyQuotesViewController.m */; };
+		77DB9C28187E8FC300CDC787 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DB9C27187E8FC300CDC787 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +59,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		772B36ED187BD0140052D1A0 /* Mantra-Icon-Color Bucket-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mantra-Icon-Color Bucket-2.png"; path = "../../../../Downloads/Mantra-Icon-Color Bucket-2.png"; sourceTree = "<group>"; };
+		772B36EE187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mantra-Icon-Color-Bucket-(pressed).png"; path = "../../../../Downloads/Mantra-Icon-Color-Bucket-(pressed).png"; sourceTree = "<group>"; };
+		772B36EF187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mantra-Icon-Color-Bucket.png"; path = "../../../../Downloads/Mantra-Icon-Color-Bucket.png"; sourceTree = "<group>"; };
+		774CF14718853AE0009E3889 /* DiscoveredViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoveredViewCell.h; path = ../DiscoveredViewCell.h; sourceTree = "<group>"; };
+		774CF14818853AE0009E3889 /* DiscoveredViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoveredViewCell.m; path = ../DiscoveredViewCell.m; sourceTree = "<group>"; };
+		77793F9F1885038B0070138C /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
+		77793FA01885038B0070138C /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		77C09A55186FE08000C68062 /* DesignPageTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignPageTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77C09A58186FE08000C68062 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		77C09A5A186FE08000C68062 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -94,6 +107,8 @@
 		77C09AB91870F64B00C68062 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		77C09ABB18710DD700C68062 /* MyQuotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyQuotesViewController.h; sourceTree = "<group>"; };
 		77C09ABC18710DD700C68062 /* MyQuotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyQuotesViewController.m; sourceTree = "<group>"; };
+		77DB9C26187E8FC300CDC787 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		77DB9C27187E8FC300CDC787 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +196,8 @@
 		77C09A5E186FE08000C68062 /* DesignPageTest */ = {
 			isa = PBXGroup;
 			children = (
+				774CF14718853AE0009E3889 /* DiscoveredViewCell.h */,
+				774CF14818853AE0009E3889 /* DiscoveredViewCell.m */,
 				77C09ABB18710DD700C68062 /* MyQuotesViewController.h */,
 				77C09ABC18710DD700C68062 /* MyQuotesViewController.m */,
 				77C09A9518700B7C00C68062 /* NSString+FontAwesome.h */,
@@ -188,8 +205,12 @@
 				77C09A67186FE08000C68062 /* AppDelegate.h */,
 				77C09A68186FE08000C68062 /* AppDelegate.m */,
 				77C09A6A186FE08000C68062 /* Main_iPhone.storyboard */,
+				77793F9F1885038B0070138C /* DiscoverViewController.h */,
+				77793FA01885038B0070138C /* DiscoverViewController.m */,
 				77C09A6D186FE08000C68062 /* Main_iPad.storyboard */,
 				77C09A70186FE08000C68062 /* FirstViewController.h */,
+				77DB9C26187E8FC300CDC787 /* LoginViewController.h */,
+				77DB9C27187E8FC300CDC787 /* LoginViewController.m */,
 				77C09A71186FE08000C68062 /* FirstViewController.m */,
 				77C09A73186FE08000C68062 /* SecondViewController.h */,
 				77C09A74186FE08000C68062 /* SecondViewController.m */,
@@ -202,6 +223,9 @@
 		77C09A5F186FE08000C68062 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				772B36ED187BD0140052D1A0 /* Mantra-Icon-Color Bucket-2.png */,
+				772B36EE187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png */,
+				772B36EF187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png */,
 				77C09A93186FFD1F00C68062 /* fontawesome-webfont.ttf */,
 				77C09A60186FE08000C68062 /* DesignPageTest-Info.plist */,
 				77C09A61186FE08000C68062 /* InfoPlist.strings */,
@@ -308,7 +332,10 @@
 				77C09A6F186FE08000C68062 /* Main_iPad.storyboard in Resources */,
 				77C09A77186FE08000C68062 /* Images.xcassets in Resources */,
 				77C09A94186FFD1F00C68062 /* fontawesome-webfont.ttf in Resources */,
+				772B36F1187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png in Resources */,
 				77C09A6C186FE08000C68062 /* Main_iPhone.storyboard in Resources */,
+				772B36F2187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png in Resources */,
+				772B36F0187BD0140052D1A0 /* Mantra-Icon-Color Bucket-2.png in Resources */,
 				77C09A63186FE08000C68062 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,10 +356,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				77C09A9718700B7C00C68062 /* NSString+FontAwesome.m in Sources */,
+				77793FA11885038B0070138C /* DiscoverViewController.m in Sources */,
 				77C09A75186FE08000C68062 /* SecondViewController.m in Sources */,
 				77C09A69186FE08000C68062 /* AppDelegate.m in Sources */,
 				77C09A72186FE08000C68062 /* FirstViewController.m in Sources */,
+				77DB9C28187E8FC300CDC787 /* LoginViewController.m in Sources */,
 				77C09A65186FE08000C68062 /* main.m in Sources */,
+				774CF14918853AE0009E3889 /* DiscoveredViewCell.m in Sources */,
 				77C09ABD18710DD700C68062 /* MyQuotesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,6 +592,7 @@
 				77C09A8F186FE08000C68062 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77C09A90186FE08000C68062 /* Build configuration list for PBXNativeTarget "DesignPageTestTests" */ = {
 			isa = XCConfigurationList;
@@ -570,6 +601,7 @@
 				77C09A92186FE08000C68062 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
