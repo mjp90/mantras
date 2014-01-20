@@ -39,6 +39,32 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.search.placeholder = @"Search Mantras                                            ";
+//    [self.search setTintColor:[UIColor greenColor]];
+//    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor redColor]];
+    
+    UITapGestureRecognizer *viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dissmissKeyboard:)];
+    [self.view addGestureRecognizer:viewTap];
+    
+    // To set placeholder text color in Search Bar
+    for (UIView *subView in self.search.subviews)
+    {
+        for (UIView *secondLevelSubview in subView.subviews){
+            if ([secondLevelSubview isKindOfClass:[UITextField class]])
+            {
+                UITextField *searchBarTextField = (UITextField *)secondLevelSubview;
+                UIColor *placeholderColor = [UIColor colorWithRed:.85 green:.85 blue:.85 alpha:1.0];
+                searchBarTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:searchBarTextField.placeholder attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+//                [searchBarTextField setValue:[UIColor colorWithRed:.97 green:.97 blue:.97 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
+                
+                //set font color here
+//                searchBarTextField.textColor = [UIColor redColor];
+                
+                break;
+            }
+        }
+    }
+    
+//    [self.search. setValue:[UIColor colorWithRed:120.0/255.0 green:116.0/255.0 blue:115.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
     [self.view setBackgroundColor:[UIColor colorWithRed:.968 green:.968 blue:.968 alpha:1]];
 
 }
@@ -114,26 +140,43 @@
         NSLog(@"Row: %d", [indexPath row]);
         NSLog(@"Row Next: %d", ([indexPath row] + 1));
         
+        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
         int cellRow = [indexPath row] * 2;
 
         UIImage *leftImage = [discoverItemsArray objectAtIndex:cellRow];
-        UIImage *rightImage = [discoverItemsArray objectAtIndex:(cellRow + 1)];
+        if (cellRow + 1 < [discoverItemsArray count]) {
+            UIImage *rightImage = [discoverItemsArray objectAtIndex:(cellRow + 1)];
+            UIImageView *image2 = (UIImageView*)[cell viewWithTag:101];
+            [image2 setImage:rightImage];
+            [image2 addGestureRecognizer:imageTap];
+        }
     
         UIImageView *image1 = (UIImageView*)[cell viewWithTag:100];
-        UIImageView *image2 = (UIImageView*)[cell viewWithTag:101];
+        
 //    UIImageView *image3 = (UIImageView*)[cell viewWithTag:102];
 
         [image1 setImage:leftImage];
-        [image2 setImage:rightImage];
+        
 //    [image3 setBackgroundColor:[UIColor blueColor]];
+        
+        
+        [image1 addGestureRecognizer:imageTap];
+        
     
     }
     
     return cell;
-    
-    
-    
-    
+}
+
+- (void)imageTapped:(UIImageView*)image {
+    [image setFrame:CGRectMake(0, 0, self.view.frame.size.width, 300)];
+}
+
+- (void)dissmissKeyboard:(UITapGestureRecognizer*)tap {
+    if (self.search.isFirstResponder) {
+        [self.search resignFirstResponder];
+        self.search.text = @"";
+    }
 }
 
 #pragma mark UISearchBarDelegate Methods

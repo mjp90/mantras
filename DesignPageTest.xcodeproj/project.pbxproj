@@ -11,6 +11,7 @@
 		772B36F1187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png in Resources */ = {isa = PBXBuildFile; fileRef = 772B36EE187BD0140052D1A0 /* Mantra-Icon-Color-Bucket-(pressed).png */; };
 		772B36F2187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png in Resources */ = {isa = PBXBuildFile; fileRef = 772B36EF187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png */; };
 		774CF14918853AE0009E3889 /* DiscoveredViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774CF14818853AE0009E3889 /* DiscoveredViewCell.m */; };
+		77574DC0188CE16500E35B51 /* MantraDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77574DBF188CE16500E35B51 /* MantraDetailViewController.m */; };
 		77793FA11885038B0070138C /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77793FA01885038B0070138C /* DiscoverViewController.m */; };
 		77C09A59186FE08000C68062 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09A58186FE08000C68062 /* Foundation.framework */; };
 		77C09A5B186FE08000C68062 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C09A5A186FE08000C68062 /* CoreGraphics.framework */; };
@@ -64,6 +65,8 @@
 		772B36EF187BD0140052D1A0 /* Mantra-Icon-Color-Bucket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mantra-Icon-Color-Bucket.png"; path = "../../../../Downloads/Mantra-Icon-Color-Bucket.png"; sourceTree = "<group>"; };
 		774CF14718853AE0009E3889 /* DiscoveredViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoveredViewCell.h; path = ../DiscoveredViewCell.h; sourceTree = "<group>"; };
 		774CF14818853AE0009E3889 /* DiscoveredViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoveredViewCell.m; path = ../DiscoveredViewCell.m; sourceTree = "<group>"; };
+		77574DBE188CE16500E35B51 /* MantraDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MantraDetailViewController.h; path = ../MantraDetailViewController.h; sourceTree = "<group>"; };
+		77574DBF188CE16500E35B51 /* MantraDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MantraDetailViewController.m; path = ../MantraDetailViewController.m; sourceTree = "<group>"; };
 		77793F9F1885038B0070138C /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		77793FA01885038B0070138C /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		77C09A55186FE08000C68062 /* DesignPageTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignPageTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +199,8 @@
 		77C09A5E186FE08000C68062 /* DesignPageTest */ = {
 			isa = PBXGroup;
 			children = (
+				77574DBE188CE16500E35B51 /* MantraDetailViewController.h */,
+				77574DBF188CE16500E35B51 /* MantraDetailViewController.m */,
 				774CF14718853AE0009E3889 /* DiscoveredViewCell.h */,
 				774CF14818853AE0009E3889 /* DiscoveredViewCell.m */,
 				77C09ABB18710DD700C68062 /* MyQuotesViewController.h */,
@@ -359,6 +364,7 @@
 				77793FA11885038B0070138C /* DiscoverViewController.m in Sources */,
 				77C09A75186FE08000C68062 /* SecondViewController.m in Sources */,
 				77C09A69186FE08000C68062 /* AppDelegate.m in Sources */,
+				77574DC0188CE16500E35B51 /* MantraDetailViewController.m in Sources */,
 				77C09A72186FE08000C68062 /* FirstViewController.m in Sources */,
 				77DB9C28187E8FC300CDC787 /* LoginViewController.m in Sources */,
 				77C09A65186FE08000C68062 /* main.m in Sources */,

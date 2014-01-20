@@ -68,17 +68,11 @@
     fontLabel.text = [NSString awesomeIcon:FaComments];
     imageLabel.text = [NSString awesomeIcon:FaPictureO];
     
-    UIPanGestureRecognizer *tap = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panView:)];
-    [self.textText addGestureRecognizer:tap];
-//    [tap release];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panView:)];
+    [self.textText addGestureRecognizer:pan];
     
-//    UITouch *touchEvent = [touches anyObject];
-    //    CGPoint location = [touchEvent locationInView:self.view];
-    //    [UIView beginAnimations:@"Dragging" context:nil];
-    //    self.view.frame = CGRectMake(location.x, location.y, self.view.frame.size.width, self.view.frame.size.height);
-    //    [UIView commitAnimations];
-    
-    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusText:)];
+//    [self.hiddenTextView addGestureRecognizer:tap];
     
 //    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         // There is not a camera on this device, so don't show the camera button.
@@ -87,51 +81,57 @@
     
 }
 
-// Called Before New Text is Put In
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    CGRect noJumpFrame = [[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
-////    if (noJumpFrame.size.width > 280 - textView.frame.origin.x)
-//    NSLog(@"Text Container Before width: %@, text height: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
-//    
-//    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, noJumpFrame.size.width + 20, noJumpFrame.size.height + 15);
-//    return YES;
+//- (void)focusText:(UITapGestureRecognizer*)tap {
+//    [textText setEditable:YES];
 //}
+
+// Called Before New Text is Put In
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    CGRect noJumpFrame = [[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+//    if (noJumpFrame.size.width > 280 - textView.frame.origin.x)
+    NSLog(@"Visible Container Before width: %@, text height: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
+    
+    
+    NSLog(@"Text View Width1: %f, Height:%f", textView.frame.size.width, textView.frame.size.height);
+    
+    
+    self.hiddenTextView.text = [textView.text stringByAppendingString:text];
+
+//    NSLog(@"New Text: %@", self.hiddenTextView.text);
+    CGRect afterFrame = [[self.hiddenTextView layoutManager] usedRectForTextContainer:[self.hiddenTextView textContainer]];
+    NSLog(@"Hidden Container Before width: %@, text height: %@", [NSString stringWithFormat:@"%f", afterFrame.size.width], [NSString stringWithFormat:@"%f", afterFrame.size.height]);
+    
+    float newWidth = afterFrame.size.width + .5;
+    float newHeight = afterFrame.size.height + 3;
+    if (newWidth > 280)
+        newWidth = 280;
+    if (newHeight > 290)
+        newHeight = 290;
+    if (newWidth + textView.frame.origin.x > 280)
+        newWidth = textView.frame.size.width;
+    // We know we aren't looking at the hidden Text View Now
+    if (textView.frame.origin.x != 0 && textView.frame.origin.y != 0)
+        newHeight = textView.frame.size.height + 30;
+        if (newHeight > 290 - textView.frame.origin.y)
+            newHeight = textView.frame.size.height;
+    if (noJumpFrame.size.height > textView.frame.size.height)
+        newHeight = noJumpFrame.size.height;
+    
+    if (textView.frame.origin.y + textView.frame.size.height > 290)
+        newHeight = 290 - textView.frame.size.height;
+    
+    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, newWidth, newHeight);
+    NSLog(@"Text View Width2: %f, Height:%f", textView.frame.size.width, textView.frame.size.height);
+//    self.hiddenTextView.frame = afterFrame;
+    
+//    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, noJumpFrame.size.width + 20, noJumpFrame.size.height + 15);
+    return YES;
+}
 
 // Passes textView with new view before rendered
-//-(void)textViewDidChange:(UITextView *)textView {
-//    CGRect noJumpFrame = [[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
-////    textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, noJumpFrame.size.width + 20, noJumpFrame.size.height + 15);
-//    float extendedWidth = noJumpFrame.size.width;
-//    if (extendedWidth > 280)
-//        textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 280, textText.frame.size.height);
-//    NSLog(@"Text Container Width: %f, Height:%f", noJumpFrame.size.width, noJumpFrame.size.height);
-//    NSLog(@"Text View Width: %f, Height:%f", textText.frame.size.width, textText.frame.size.height);
-//    
-//    // HACKY LOGIC. TRY TO FIND BETTER WAY
-////    if (self.firstLoad == YES) {
-////        self.firstLoad = NO;
-////        textText.frame = noJumpFrame;
-////        return;
-////    }
-////    if (textText.frame.size.width + noJumpFrame.size.width > 280)
-////        noJumpFrame.size.width = 280;
-////    else
-////        noJumpFrame.size.width += textText.frame.size.width;
-//    
-//    if (noJumpFrame.size.width > 280)
-//        noJumpFrame.size.width = 280;
-////    if (noJumpFrame.size.height)
-//
-//    textText.frame = noJumpFrame;
-//}
-
 - (void)panView:(UIPanGestureRecognizer *)recognizer {
     CGPoint location = [recognizer translationInView:self.textText];
     CGRect noJumpFrame = [[textText layoutManager] usedRectForTextContainer:[textText textContainer]];
-//    float newX = recognizer.view.center.x + location.x;
-//    float newY = recognizer.view.center.y + location.y;
-    
-    
     
     float xO = recognizer.view.frame.origin.x;
     float yO = recognizer.view.frame.origin.y;
@@ -140,37 +140,31 @@
     float newY = yO + location.y;
     
 //     NSLog(@"View Center: X: %@ Y: %@", [NSString stringWithFormat:@"%f", recognizer.view.center.x], [NSString stringWithFormat:@"%f", recognizer.view.center.y]);
-    NSLog(@"View Origin: X: %@ Y: %@", [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.x], [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.y]);
-    NSLog(@"Move To: X: %@ Y: %@", [NSString stringWithFormat:@"%f", location.x], [NSString stringWithFormat:@"%f", location.y]);
+//    NSLog(@"View Origin: X: %@ Y: %@", [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.x], [NSString stringWithFormat:@"%f", recognizer.view.frame.origin.y]);
+//    NSLog(@"Move To: X: %@ Y: %@", [NSString stringWithFormat:@"%f", location.x], [NSString stringWithFormat:@"%f", location.y]);
     
     
     if (newX < 0)
         newX = 0;
-    else if (noJumpFrame.size.width > (280 - xO - location.x - 2))
+    else if (noJumpFrame.size.width > (280 - newX - 2))
         newX = xO;
     if (newY < 0)
         newY = 0;
-    else if (noJumpFrame.size.height > (300 - (yO + location.y + 10)))
+    else if (noJumpFrame.size.height > (290 - (yO + location.y + 10)))
         newY = yO;
     
-    NSLog(@"Text Size X: %@ New Y: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
-    NSLog(@"New X: %@ New Y: %@", [NSString stringWithFormat:@"%f", newX], [NSString stringWithFormat:@"%f", newY]);
+//    NSLog(@"Text Size X: %@ New Y: %@", [NSString stringWithFormat:@"%f", noJumpFrame.size.width], [NSString stringWithFormat:@"%f", noJumpFrame.size.height]);
+//    NSLog(@"New X: %@ New Y: %@", [NSString stringWithFormat:@"%f", newX], [NSString stringWithFormat:@"%f", newY]);
+    
+
     
     
-//    if (newX < 140)
-//        newX = 140;
-//    else if (newX > 400)
-//        newX = 400;
-//    
-//    if (newY < 150)
-//        newY = 150;
-//    else if (newY > 400)
-//        newY = 400;
-    NSUInteger length = [self.textText.text length];
-    
-//    recognizer.view.center = CGPointMake(newX, newY);
     recognizer.view.frame = CGRectMake(newX, newY, recognizer.view.frame.size.width, recognizer.view.frame.size.height);
+//    self.hiddenTextView.frame = CGRectMake(newX, newY, recognizer.view.frame.size.width, recognizer.view.frame.size.height);
     [recognizer setTranslation:CGPointMake(0, 0)inView:self.textText];
+//    [recognizer setTranslation:CGPointMake(0, 0)inView:self.textText];
+    
+//    NSLog(@"WIDTH:%f HEIGHT: %f", recognizer.view.frame.size.width, recognizer.view.frame.size.height);
     
     
     
@@ -570,8 +564,13 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (textText) {
-        if ([textText canResignFirstResponder])
+        if ([textText isFirstResponder]) {
             [textText resignFirstResponder];
+        }
+        else
+            [textText becomeFirstResponder];
+        
+        // if ([textText canResignFirstResponder])
     }
     [super touchesBegan:touches withEvent:event];
 }

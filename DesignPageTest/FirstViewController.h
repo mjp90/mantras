@@ -19,6 +19,7 @@
 
 @property (nonatomic, retain) IBOutlet UISlider *textSizeSlider;
 @property (nonatomic, retain) IBOutlet UITextView *textText;
+@property (nonatomic, retain) IBOutlet UITextView *hiddenTextView;
 @property (nonatomic, retain) IBOutlet UIView *sliderTickMarks;
 
 @property (nonatomic, retain) IBOutlet UILabel *smallTextLabel;
